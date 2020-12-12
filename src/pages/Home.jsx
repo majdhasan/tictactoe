@@ -4,6 +4,12 @@ import socketClient from 'socket.io-client'
 import { Navigation, CreateGameForm, JoinGameForm } from '../components'
 
 function Home() {
+
+    const handleSubmit = (name, id) => {
+
+        console.log(`name: ${name} and id: ${id}`);
+    }
+
     return (
         <div>
             {/* <Navigation></Navigation> */}
@@ -14,9 +20,9 @@ function Home() {
                 <hr />
                 <p className="description">Start a new game or join an existing game</p>
                 <hr />
-                <CreateGameForm></CreateGameForm>
+                <CreateGameForm onSubmit={handleSubmit} />
                 <hr />
-                <JoinGameForm></JoinGameForm>
+                <JoinGameForm onSubmit={handleSubmit} />
             </div>
         </div>
     )

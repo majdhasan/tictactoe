@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 
-export default function CreateGameForm() {
+export default function CreateGameForm({ onSubmit }) {
 
     const [name, setName] = useState('');
 
@@ -10,13 +10,13 @@ export default function CreateGameForm() {
         setName(value);
     }
 
-    const handleClick = e => {
-        e.preventDefault();
-        if (name !== "") {
-            console.log(name);
-        }
+    const handleClick = () => {
 
+        if (name !== '') {
+            onSubmit(name)
+        }
     }
+
     return (
         <div>
             <div className="section-hedaer">

@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
 
-function JoinGameForm() {
+function JoinGameForm({ onSubmit }) {
 
-    const [id, setId] = useState('');
+    const [state, setState] = useState({ id: '', name: '' })
+
 
     const handleChange = e => {
-        const { value } = e.target;
-        setId(value);
-    }
-
-    const handleClick = e => {
-        if (id !== '') {
-            e.preventDefault();
-            console.log(id);
+        const { id, value } = e.target;
+        setState(oldvalue => {
+            return { ...oldvalue, [id]: value }
         }
+        )
+    };
 
-        // TODO
+    const handleClick = () => {
+        const { id, name } = state;
+        if (id !== '' && name !== '') {
+            onSubmit(state.name, state.id)
+        }
     }
 
     return (
@@ -26,7 +28,8 @@ function JoinGameForm() {
             <form action="">
 
                 <div class="form-group">
-                    <input value={id} onChange={handleChange} type="id" class="form-control" id="exampleInputEmail1" aria-describedby="idHelp" placeholder="Enter Game ID" />
+                    <input value={state.id} onChange={handleChange} type="id" class="form-control" id="id" aria-describedby="idHelp" placeholder="Enter Game ID" />
+                    <input value={state.name} onChange={handleChange} type="name" class="form-control" id="name" placeholder="Enter Your Nickname" />
                     <small id="idHelp" class="form-text text-muted">Ask your opponent for the ID</small>
                 </div>
                 <button onClick={handleClick} type="button" class="btn btn-primary btn-lg btn-block">Join</button>
