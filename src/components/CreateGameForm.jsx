@@ -1,17 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
 export default function CreateGameForm() {
+
+    const [name, setName] = useState('');
+
+    const handleChange = e => {
+        const { value } = e.target;
+        setName(value);
+    }
+
+    const handleClick = e => {
+        e.preventDefault();
+        if (name !== "") {
+            console.log(name);
+        }
+
+    }
     return (
         <div>
             <div className="section-hedaer">
                 Create a new game
             </div>
-            <form action="">
-                <div class="form-group">
-                    <input type="name" class="form-control" id="name" placeholder="Enter Your Nickname" />
+            <form >
+                <div className="form-group">
+                    <input value={name} onChange={handleChange} type="name" class="form-control" id="name" placeholder="Enter Your Nickname" />
                 </div>
-                <button type="button" class="btn btn-primary btn-lg btn-block">Create</button>
+                <button type="button" className="btn btn-primary btn-lg btn-block" onClick={handleClick}>Create</button>
 
             </form>
         </div>

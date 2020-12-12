@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import socketClient from 'socket.io-client'
+
 import { Navigation, CreateGameForm, JoinGameForm } from '../components'
 
 function Home() {
     return (
-
         <div>
             {/* <Navigation></Navigation> */}
             <div className="container">
