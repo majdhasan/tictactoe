@@ -28,7 +28,7 @@ function JoinGameForm({ onSubmit }) {
             <form action="">
 
                 <div class="form-group">
-                    <input value={state.id} onChange={handleChange} type="id" class="form-control" id="id" aria-describedby="idHelp" placeholder="Enter Game ID" />
+                    <input value={state.id} onChange={handleChange} type="id" class="form-control" id="id" aria-describedby="idHelp" placeholder="Enter Game ID" /><br />
                     <input value={state.name} onChange={handleChange} type="name" class="form-control" id="name" placeholder="Enter Your Nickname" />
                     <small id="idHelp" class="form-text text-muted">Ask your opponent for the ID</small>
                 </div>
