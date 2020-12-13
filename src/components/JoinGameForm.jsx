@@ -16,7 +16,7 @@ function JoinGameForm({ onSubmit }) {
     const handleClick = () => {
         const { id, name } = state;
         if (id !== '' && name !== '') {
-            onSubmit(state.name, state.id)
+            onSubmit(state.name, state.id, 'join')
         }
     }
 

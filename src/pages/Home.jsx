@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import socketClient from 'socket.io-client'
 
-import { Navigation, CreateGameForm, JoinGameForm } from '../components'
+import { CreateGameForm, JoinGameForm } from '../components'
 import { Game } from './Game';
 
 function Home() {
 
     const [showGame, setShowGame] = useState(false)
+    const [gameId, setGameId] = useState(false)
+    const [name, setName] = useState(false)
 
-    const handleSubmit = (name, id) => {
-        console.log(`name: ${name} and id: ${id}`);
+    const handleSubmit = (name, id, type) => {
+        console.log(`name: ${name} wants to ${type} a game`);
+        setGameId(id)
+        setName(name)
         setShowGame(true)
     }
 
@@ -28,7 +32,7 @@ function Home() {
                         <JoinGameForm onSubmit={handleSubmit} />
                     </>
                 )}
-                {showGame && <Game />}
+                {showGame && <Game gameId={gameId} name={name} />}
             </div>
         </div>
     )

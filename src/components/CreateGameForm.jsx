@@ -13,7 +13,7 @@ export default function CreateGameForm({ onSubmit }) {
     const handleClick = () => {
 
         if (name !== '') {
-            onSubmit(name)
+            onSubmit(name, null, 'create')
         }
     }
 
