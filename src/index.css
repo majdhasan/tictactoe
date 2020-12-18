@@ -2,7 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: azure;
+  background-color: darkkhaki;
   height: 100%;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -12,7 +12,7 @@ body {
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
-  padding: 2%;
+  padding: 10%;
 }
 
 .section-hedaer {
@@ -25,4 +25,25 @@ body {
   background-color: #202f40;
   height: 40px;
   font-size: 0.9rem;
+}
+
+.board {
+  margin: 100px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.box {
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+}
+
+.box-button {
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+  background-color: antiquewhite;
 }
