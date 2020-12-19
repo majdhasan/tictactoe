@@ -24,7 +24,7 @@ export default function CreateGameForm({ onSubmit }) {
             </div>
             <form >
                 <div className="form-group">
-                    <input value={name} onChange={handleChange} type="name" class="form-control" id="name" placeholder="Enter Your Nickname" />
+                    <input value={name} onChange={handleChange} type="name" className="form-control" id="name" placeholder="Enter Your Nickname" />
                 </div>
                 <button type="button" className="btn btn-primary btn-lg btn-block" onClick={handleClick}>Create</button>
 
