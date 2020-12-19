@@ -22,15 +22,15 @@ function Game({ gameId, name }) {
 
     useEffect(() => {
         socketRef.current.on('playerCreated', data => {
-            console.log("playerCreated", data);
-            setGame(data.game)
             setPlayer(data.player)
-            console.log(player);
+        })
+        socketRef.current.on('gameCreated', data => {
+            setGame(data.game)
         })
 
         socketRef.current.on('gameUpdated', data => {
             console.log("gameUpdated", data);
-            setGame(data.game.playBoard)
+            setGame(data.game)
         })
     });
 
@@ -39,7 +39,7 @@ function Game({ gameId, name }) {
         const newPlayBoard = game.playBoard
         newPlayBoard[name] = player.symbol
         setGame({ ...game, playBoard: newPlayBoard })
-        socketRef.current.emit("gameChanged", game)
+        socketRef.current.emit("updateGame", { gameId: game.id, playerId: player.id, box: name })
         console.log(`the box with the name ${name} has been clicked`);
     }
     return (
@@ -53,13 +53,13 @@ function Game({ gameId, name }) {
 
                     if (player && game && player.id !== game.playerTurn) {
                         return (
-                            <div className="box" id={`box-${index}`}>
-                                <button disabled key={index + "box"} name={"box" + index} onClick={handleClick} className="box-button">{box}</button>
+                            <div key={index + "box"} className="box" id={`box-${index}`}>
+                                <button disabled name={"box" + index} onClick={handleClick} className="box-button">{box}</button>
                             </div>
                         )
                     } else {
                         return (
-                            <div className="box" id={`box-${index}`}>
+                            <div key={index + "box"} className="box" id={`box-${index}`}>
                                 <button key={index + "box"} name={index} onClick={handleClick} className="box-button">{box}</button>
                             </div>
                         )
