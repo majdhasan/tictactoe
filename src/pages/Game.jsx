@@ -8,6 +8,7 @@ function Game({ gameId, name }) {
 
     const [player, setPlayer] = useState(null)
     const [game, setGame] = useState(null)
+
     const socketRef = useRef();
 
     useEffect(() => {
@@ -24,46 +25,42 @@ function Game({ gameId, name }) {
         socketRef.current.on('playerCreated', data => {
             setPlayer(data.player)
         })
+        socketRef.current.on('gameJoined', data => {
+            setGame(data.game)
+        })
         socketRef.current.on('gameCreated', data => {
             setGame(data.game)
         })
 
         socketRef.current.on('gameUpdated', data => {
             console.log("gameUpdated", data);
-            setGame(data.game)
+            if (game && data.game.id === game.id) {
+                setGame(data.game)
+            }
+
         })
     });
 
     const handleClick = e => {
         const { name } = e.target;
-        const newPlayBoard = game.playBoard
-        newPlayBoard[name] = player.symbol
-        setGame({ ...game, playBoard: newPlayBoard })
         socketRef.current.emit("updateGame", { gameId: game.id, playerId: player.id, box: name })
-        console.log(`the box with the name ${name} has been clicked`);
     }
+
     return (
 
         <div className="home-header">
             { player && <p>Hello {player.name}</p>}
-            <h1>Its your Turn 👇</h1>
+            <h4>Game ID: {game && game.id}</h4>
+            <h4>{(game && game.status === "waiting") ? "Please wait for the other player to join" : (game && game.playerTurn === player.id ? "Its your Turn 👇" : "It's the other player's turn")}</h4>
             <div className="board">
 
                 {game && game.playBoard.map((box, index) => {
-
-                    if (player && game && player.id !== game.playerTurn) {
-                        return (
-                            <div key={index + "box"} className="box" id={`box-${index}`}>
-                                <button disabled name={"box" + index} onClick={handleClick} className="box-button">{box}</button>
-                            </div>
-                        )
-                    } else {
-                        return (
-                            <div key={index + "box"} className="box" id={`box-${index}`}>
-                                <button key={index + "box"} name={index} onClick={handleClick} className="box-button">{box}</button>
-                            </div>
-                        )
-                    }
+                    console.log(game.playBoard);
+                    return (
+                        <div key={index + "box"} className="box" id={`box-${index}`}>
+                            <button disabled={player && game && (player.id !== game.playerTurn || game.status !== "started" || box !== null)} name={index} onClick={handleClick} className="box-button">{box}</button>
+                        </div>
+                    )
                 })}
             </div>
         </div>
